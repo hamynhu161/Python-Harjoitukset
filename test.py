@@ -1,2 +1,2 @@
 print("Hei!")
-print("Moi moi!")
+print("Moi moi! Nähdään pian.")
