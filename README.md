@@ -11,3 +11,10 @@ Tein tehtävät 1 ja 2: Ensin kirjoitin ohjelma, joka tulostaa "Hei!" ja sitten 
 Tein kaikki tehtävät 1-6. 
 
 
+## Moduuli 4
+
+Tein kaikki tehtävät 1-4. 
+
+## Moduuli 5
+
+Tein kaikki tehtävät 1-6. 
