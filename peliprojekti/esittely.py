@@ -14,7 +14,7 @@ else:
         elif komento == "2":
             print("Aloitetaan peli ja nautitaan siitä.")
         elif komento == "3":
-            print("Tulostaulukosta näkee oman sijoituksen ja parhaat pisteet.")
+            print("Tulostaulukosta näkyy oman sijoituksen ja parhaat pisteet.")
         elif komento == "lopeta":
             break
      
