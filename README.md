@@ -24,3 +24,7 @@ Tein kaikki tehtävät 1-6.
 Tein kaikki tehtävät 1-4. 
 
 Kolmannessa tehtävässä ensin osasin aluksi tulostaa vain lukuja, jotka eivät ole alkulukuja. En tiennyt, miten voi tulostaa alkulukuja. Ystävän avulla, ymmärsin paremmin, miten bolean- muuttujaa käytetään, ja lopuksi sain tehtävän ratkaisun.
+
+## Moduuli 7
+
+Tein kaikki tehtävät 1-6. 
