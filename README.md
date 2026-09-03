@@ -29,3 +29,6 @@ Kolmannessa tehtävässä ensin osasin aluksi tulostaa vain lukuja, jotka eivät
 
 Tein kaikki tehtävät 1-6. 
 
+## Moduuli 8
+
+Tein kaikki tehtävät 1-3.
