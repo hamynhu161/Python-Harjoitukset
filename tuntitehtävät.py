@@ -71,22 +71,61 @@
       
 # Using while True
 
-while True:
-    menu_list = "Select option: \n1. plus \n2. miinus \n3. kertolasku \n0. lopetus"
+# while True:
+#     menu_list = "Select option: \n1. plus \n2. miinus \n3. kertolasku \n0. lopetus"
 
-    select = input(menu_list)
+#     select = input(menu_list)
     
-    if select == "0":
-        break
+#     if select == "0":
+#         break
     
-    numero_1 = float(input("Anna numero: "))
-    numero_2 = float(input("Anna numero: "))
+#     numero_1 = float(input("Anna numero: "))
+#     numero_2 = float(input("Anna numero: "))
     
-    if select == "1":
-        print(f"Laskutoimituksen tulos on: {numero_1 + numero_2}")
-    elif select == "2":
-        print(f"Laskutoimituksen tulos on: {numero_1 - numero_2}")
-    elif select == "3":
-        print(f"Laskutoimituksen tulos on: {numero_1 * numero_2}")
+#     if select == "1":
+#         print(f"Laskutoimituksen tulos on: {numero_1 + numero_2}")
+#     elif select == "2":
+#         print(f"Laskutoimituksen tulos on: {numero_1 - numero_2}")
+#     elif select == "3":
+#         print(f"Laskutoimituksen tulos on: {numero_1 * numero_2}")
+ 
+#Tehtävä 6: 
+# Tee luoka Lentokone (nimi, bensatankki_maksami, bensatankki_nyky). Tee luokalle lentokonelle metodi tankkaa(), joka täyttää lentokoneen tankin ja tulostaa, paljonko benssa mahtui. 
+# Tee lentokoneelle metodi tulosta_tiedot()
+# Tee luoka Lentokenttä (nimi ja lista kentälla olevista koneista). Tee luokkalle metodi tulosta_koneet() joka tuolostaa lentokentällä olevien koneiden tiedot. Se käyttää kunkin lentokoneen tulosta_tiedot() - metodia
+class Lentokone:
+    def __init__(self, nimi, bensatankki_maksami, bensatankki_nyky):
+        self.nimi = nimi
+        self.bensa_maksami = bensatankki_maksami
+        self.bensa_nyky = bensatankki_nyky
+    
+    def tankkaa(self):
+        tankki = self.bensa_maksami - self.bensa_nyky
+        print(f"Lentokone mahtuu {tankki} litraa bensa.")
         
+    def tulosta_tiedot(self):
+        print(f"Lentokone: {self.nimi}, bensatankin maksimi: {self.bensa_maksami}, bensatankin nykyinen lukema: {self.bensa_nyky}")
+        return
     
+class Lentokenttä():
+    def __init__(self, nimi):
+        self.nimi = nimi
+        self.koneet = []
+    
+    def listakoneet(self, kone):
+        self.koneet.append(kone)
+        # return
+        
+    def tulosta_koneet(self):
+        for kone in self.koneet:
+            kone.tulosta_tiedot()
+            
+kone1 = Lentokone("Boeing737", 243400, 200000)
+kone2 = Lentokone("AirbusA350", 323500, 300000)   
+lentokenttä = Lentokenttä("Helsinki")         
+kone1.tankkaa()
+kone2.tankkaa()
+lentokenttä.listakoneet(kone1)
+lentokenttä.listakoneet(kone2)
+lentokenttä.tulosta_koneet()
+        

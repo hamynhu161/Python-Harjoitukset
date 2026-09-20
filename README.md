@@ -32,3 +32,15 @@ Tein kaikki tehtävät 1-6.
 ## Moduuli 8
 
 Tein kaikki tehtävät 1-3.
+
+## Moduuli 9
+
+Tein kaikki tehtävät 1-4.
+
+## Moduuli 10
+
+Tein kaikki tehtävät 1-4.
+
+## Moduuli 11
+
+Tein kaikki tehtävät 1-2.

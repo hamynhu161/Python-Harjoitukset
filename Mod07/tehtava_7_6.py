@@ -11,7 +11,7 @@ def laskea_yksikkohinta(halkaisija, hinta):
     sade = halkaisija_m / 2
     pinta_ala = math.pi * sade ** 2
     yksikkohinta = hinta/pinta_ala
-    return yksikkohinta
+    return yksikkohinta 
 
 pizza_1_halkaisija = float(input("Anna ensimmäisen pizzan halkaisija: "))
 pizza_1_hinta = float(input("Anna ensimmäisen pizzan hinta: "))
