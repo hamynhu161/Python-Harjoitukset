@@ -93,39 +93,147 @@
 # Tee luoka Lentokone (nimi, bensatankki_maksami, bensatankki_nyky). Tee luokalle lentokonelle metodi tankkaa(), joka täyttää lentokoneen tankin ja tulostaa, paljonko benssa mahtui. 
 # Tee lentokoneelle metodi tulosta_tiedot()
 # Tee luoka Lentokenttä (nimi ja lista kentälla olevista koneista). Tee luokkalle metodi tulosta_koneet() joka tuolostaa lentokentällä olevien koneiden tiedot. Se käyttää kunkin lentokoneen tulosta_tiedot() - metodia
-class Lentokone:
-    def __init__(self, nimi, bensatankki_maksami, bensatankki_nyky):
-        self.nimi = nimi
-        self.bensa_maksami = bensatankki_maksami
-        self.bensa_nyky = bensatankki_nyky
+# class Lentokone:
+#     def __init__(self, nimi, bensatankki_maksami, bensatankki_nyky):
+#         self.nimi = nimi
+#         self.bensa_maksami = bensatankki_maksami
+#         self.bensa_nyky = bensatankki_nyky
     
-    def tankkaa(self):
-        tankki = self.bensa_maksami - self.bensa_nyky
-        print(f"Lentokone mahtuu {tankki} litraa bensa.")
+#     def tankkaa(self):
+#         tankki = self.bensa_maksami - self.bensa_nyky
+#         print(f"Lentokone mahtuu {tankki} litraa bensa.")
         
-    def tulosta_tiedot(self):
-        print(f"Lentokone: {self.nimi}, bensatankin maksimi: {self.bensa_maksami}, bensatankin nykyinen lukema: {self.bensa_nyky}")
-        return
+#     def tulosta_tiedot(self):
+#         print(f"Lentokone: {self.nimi}, bensatankin maksimi: {self.bensa_maksami}, bensatankin nykyinen lukema: {self.bensa_nyky}")
+#         return
     
-class Lentokenttä():
+# class Lentokenttä():
+#     def __init__(self, nimi):
+#         self.nimi = nimi
+#         self.koneet = []
+    
+#     def listakoneet(self, kone):
+#         self.koneet.append(kone)
+#         # return
+        
+#     def tulosta_koneet(self):
+#         for kone in self.koneet:
+#             kone.tulosta_tiedot()
+            
+# kone1 = Lentokone("Boeing737", 243400, 200000)
+# kone2 = Lentokone("AirbusA350", 323500, 300000)   
+# lentokenttä = Lentokenttä("Helsinki")         
+# kone1.tankkaa()
+# kone2.tankkaa()
+# lentokenttä.listakoneet(kone1)
+# lentokenttä.listakoneet(kone2)
+# lentokenttä.tulosta_koneet()
+
+#Tehtävä 7
+# 1. Lue koodi läpi, suorita se, varmista että ymmärrät, miten se toimii nyt.
+# 2. Luo luokat Hirvio ja Pelaajahahmo. Ne molemmat perivät luokan Hahmo.
+# 3. Muokkaa koodia niin, että lisäät Pelaajahahmo-luokalle ominaisuuden tavaralista. 
+# Kun pelaajahahmo-olio luodaan, se saa parametrinä listan tavaroita, jotka tallennetaan olion listaan.
+# 4. Ylikirjoita Hahmo-luokan tulosta-metodi Pelaajahahmolle niin, että se tulostaa mukaan myös tavaralistan.
+# 5. Muokkaa niin, että vain hirviöillä on repliikki, ei kaikilla Hahmo-olioilla.
+# 6. Ylikirjoita Hirvio-luokan tulosta-metodi niin, että se tulostaa myös repliikin.
+# 7. Jos ehdit: Luo peliin useampi hirviö, ja laita pelaajahahmo taistelemaan myös niiden kanssa. 
+# Taistelu-metodia ei tarvita sekä hahmolle että hirviölle. 
+# Siirrä se sille luokalle, jossa se on sinusta looginen. 
+# Testaa, että peli toimii järkevästi.
+
+# class Hahmo:
+#     def __init__(self, nimi, repliikki):
+#         self.nimi = nimi
+#         self.repliikki = repliikki
+#         self.hp = 100
+
+#     def tulosta_tiedot(self):
+#         print(f"Hahmon nimi: {self.nimi}")
+#         print(f"Hahmon hp: {self.hp}")
+
+#     def taistelu(self, vastustaja):
+#         print("Tulee suuri taistelu.")
+#         input()
+#         if vastustaja.hp > self.hp:
+#             print(f"{self.nimi} hävisi taistelun :<")
+#             self.hp = 0
+#         else:
+#             print(f"{self.nimi} voitti taistelun!")
+#             self.tulosta_tiedot()
+
+# merihirvio = Hahmo("Merihirviö", "Lits läts, aion syödä sinut!")
+# pelaajahahmo = Hahmo(input("Anna hahmon nimi: "), "Olen sankari ja voitan kaikki!")
+
+# print("Peli alkaa.")
+# pelaajahahmo.tulosta_tiedot()
+# input()
+
+# print(f"{pelaajahahmo.nimi} kohtaa ensimmäiseksi kauhean hirviön. Hirviö huutaa:")
+# print(merihirvio.repliikki)
+# merihirvio.tulosta_tiedot()
+
+# input()
+# pelaajahahmo.taistelu(merihirvio)
+# input()
+# print(f"Peli ohi.")
+
+class Hahmo:
     def __init__(self, nimi):
         self.nimi = nimi
-        self.koneet = []
-    
-    def listakoneet(self, kone):
-        self.koneet.append(kone)
-        # return
-        
-    def tulosta_koneet(self):
-        for kone in self.koneet:
-            kone.tulosta_tiedot()
+        self.hp = 100
+
+    def tulosta_tiedot(self):
+        print(f"Hahmon nimi: {self.nimi}")
+        print(f"Hahmon hp: {self.hp}")
             
-kone1 = Lentokone("Boeing737", 243400, 200000)
-kone2 = Lentokone("AirbusA350", 323500, 300000)   
-lentokenttä = Lentokenttä("Helsinki")         
-kone1.tankkaa()
-kone2.tankkaa()
-lentokenttä.listakoneet(kone1)
-lentokenttä.listakoneet(kone2)
-lentokenttä.tulosta_koneet()
+class Hirvio (Hahmo):
+    def __init__(self, nimi, repliikki):
+        super().__init__(nimi)
+        self.repliikki = repliikki
         
+    def tulosta_tiedot(self):
+        super().tulosta_tiedot()
+        print(self.repliikki)
+
+class Pelaajahahmo(Hahmo):
+    def __init__(self, nimi, tavarat):
+        super().__init__(nimi)
+        self.tavarat = tavarat
+    
+    def tulosta_tiedot(self):
+        super().tulosta_tiedot()
+        print(f"Tavarat ovat: {self.tavarat}")
+        
+    def taistelu(self, vastustaja):
+        print("Tulee suuri taistelu.")
+        input()
+        if vastustaja.hp > self.hp:
+            print(f"{self.nimi} hävisi taistelun :<")
+            self.hp = 0
+        else:
+            print(f"{self.nimi} voitti taistelun!")
+            self.tulosta_tiedot()
+        
+class Peli:
+    def __init__(self, pelaajahahmo, hirviöt):
+        self.pelaajahahmo = pelaajahahmo
+        self.hirviöt = hirviöt
+    
+    def alkaa(self):
+        print("Pelo alkaa")
+        self.pelaajahahmo.tulosta_tiedot()
+        
+        for hirviö in hirviöt:
+            print(f"{self.pelaajahahmo.nimi} kohtaa hirviön. Hirviö huutaa:")
+            hirviö.tulosta_tiedot()
+            self.pelaajahahmo.taistelu(hirviö)
+            
+        print("Peli ohi!")
+    
+merihirvio = Hirvio("Merihirviö", "Lits läts, aion syödä sinut!")
+vuorihirvio = Hirvio("Vuorihirviö", "Syödä sinut!")
+hirviöt = [merihirvio, vuorihirvio]
+pelaajahahmo = Pelaajahahmo(input("Anna hahmon nimi: "), ["ase", "miekka"])
+peli = Peli(pelaajahahmo, hirviöt)
+peli.alkaa()

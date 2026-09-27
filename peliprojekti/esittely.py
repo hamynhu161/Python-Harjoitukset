@@ -1,50 +1,85 @@
-nimi = input("Anna sinun nimesi: ")
-ikä = int(input("Anna sinun ikäsi: "))
+from peli import Huone, Esine, Pelaaja
 
-asetukset_valitettu = []
-pelimaailma = ["Metsäseikkailu", "Meriseikkailu", "Aavikko"]
-pisteet = [100,232,554,321,98,666]
-pelaajat = ["Anna", "Teemu", "Hanna", "Aatu"]
+#Luo kolme erillistä huonetta tai teemaa, joista pelaaja voi valita seikkailun aloituspaikan
+def luo_huoneet():
+    esine1 = Esine("miekka", 1.5)
+    esine2 = Esine("kompassi", 0.3)
+    esine3 = Esine("taskulamppu", 0.7 )
 
+    huoneet = [Huone("Metsäseikkailu", esine1), Huone("Meriseikkailu", esine3), Huone("Aavikko", esine2)]
+    return huoneet
+
+#Luo asetukset-funktio, jonka avulla pelaaja voi muuttaa äänenvoimakkuutta tai kirkkautta.
 def asetukset():
     ääni = input("Anna sopiva äänenvoimakkuus: ")
     kirkkaus = input("Ann sopiva kirkkaus: ")
-    
-    asetukset_valitettu.append(ääni)
-    asetukset_valitettu.append(kirkkaus)
-    print(asetukset_valitettu)
-    
+    print(f"Asetukset tallennettu: ääni {ääni}, kirkkaus: {kirkkaus}")
 
-def tulostaulukko(pistee, pelaaja):
-    pelaaja_maara = len(pelaaja)
-    print(f"Pelilla on {pelaaja_maara} pelaaja.")
-        
-    pistee.sort(reverse = True)
-    paras_piste = pistee[0]
-    print(f"Paras piste on: {paras_piste}")
-        
-def aloitus(teemat):
-    print(f"Valitse teema, joka kiinnostaa sinua eniten!")
-    for teema in teemat:
-        print (" + ", teema)
+#Luo tulostaulukko-funktio, jonka avulla pelaaja voi nähdä oman sijoituksen.
+def tulostaulukko(pisteet, pelaaja, pelaajat):
+    print(f"Pelilla on {len(pelaajat)} pelaajaa.")
+    
+    pisteet.append(pelaaja.piste)
+    print(f"Paras pistemäärä on: {max(pisteet)}")
+    print(f"Sinun pistemäärä on: {pelaaja.piste}")
 
-if ikä < 12:
-    print(f"Olet alaikäinen. Peli suljetaan.")
-else:
-    print(f"Tervetuloa {nimi}!")
+#Luo aloitus-funktio, jossa pelaaja voi valita haluamansa teeman tai huoneen ja aloittaa seikkailun        
+def aloitus(pelaaja, teemat):
+    print(f"Mitä teemaa, joka kiinnostaa sinua eniten!")
+    print(f" 1. Metsäseikkailu \n 2. Meriseikkailu \n 3. Aavikko")
+    
+    uusi_huone = int(input("Valinta on: "))
+    
+    print("-------")
+
+    if uusi_huone == 1:
+        pelaaja.liiku(teemat[0])
+    elif uusi_huone == 2:
+        pelaaja.liiku(teemat[1])
+    elif uusi_huone == 3:
+        pelaaja.liiku(teemat[2])
+    else:
+        print("Valitset uudelleen.")
+        return                          #loppuu funktio
+    
+    pelaaja.keraa_esine()               #kutsutaan kun valinta on 1-3
+
+#main()-funktio näyttää pelin kulun 
+def main():
+    nimi = input("Anna sinun nimesi: ")
+    ikä = int(input("Anna sinun ikäsi: "))
+
+    pelaaja = Pelaaja(nimi, [], None)
+    teemat = luo_huoneet()
+    pelaajat = ["Anna", "Teemu", "Hanna", "Aatu"]   #oletetaan, että tämä on aiemmin tallennettu pelaajien tieto
+    pisteet = [100,232,554,321,98]                  #oletetaan, että tämä on aiemmin tallennettu pelaajien tieto
+    pelaajat.append(pelaaja) 
+    
+    if ikä < 12:
+        print(f"Olet alaikäinen. Peli suljetaan.")
+        return
+    else:
+        print(f"Tervetuloa {pelaaja}!")
     
     while True:
+        print("-------")
         print("Päävalikko: \n1. Asetukset \n2. Aloitus \n3. Tulostaulukko")
         komento = input("Anna komento: ")
+        print("-------")
         if komento == "1":
-            # print("Tästä asetuksesta voi säätää musiikin ja äänien voimakkuutta.")
             asetukset()
         elif komento == "2":
-            # print("Aloitetaan peli ja nautitaan siitä.")
-            aloitus(pelimaailma)
+            aloitus(pelaaja, teemat)
         elif komento == "3":
-            # print("Tulostaulukosta näkyy oman sijoituksen ja parhaat pisteet.")
-            tulostaulukko(pisteet, pelaajat)
+            tulostaulukko(pisteet, pelaaja, pelaajat)
         elif komento == "lopeta":
-            break          
-    
+            break   
+        else:
+            print(f"Tuntematon komento. Valitset uudelleen.")       
+
+if __name__=="__main__":
+    main()
+
+
+
+
