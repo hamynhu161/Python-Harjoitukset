@@ -11,7 +11,7 @@ class Tiedot:
                 
     def tallenna_tiedot(self,pelaaja):
         # tallentaa tiedostoon esineiden nimet
-        if pelaaja.esineet is not None:
+        if pelaaja.esineet:
             esine_nimet = [esine.nimi for esine in pelaaja.esineet]
             esineet = ",".join(esine_nimet)
         else:
@@ -30,7 +30,6 @@ class Tiedot:
                 rivit = tiedosto.readlines()
         except FileNotFoundError:
             pass
-        
         with open(self.tiedot, "w") as tiedosto:
             for rivi in rivit:
                 nimi = rivi.strip().split(";")[0]
@@ -42,7 +41,7 @@ class Tiedot:
             if tieto_paivitetty == False:
                 tiedosto.write(uusi_rivi)
                 
-    def ladaa_tiedot(self):
+    def lataa_tiedot(self):
         pelaajat = []
         try:
             with open(self.tiedot, "r") as tiedosto:
@@ -57,7 +56,22 @@ class Tiedot:
         except FileNotFoundError:
             pass
         return pelaajat
-        
+    
+    def tallenna_tulos(self, tulokset):
+        with open (self.tiedot, "w") as tiedosto:
+            for tulos in tulokset:       
+                tiedosto.write(f"{tulos[0]},{tulos[1]},{tulos[2]}\n")
 
+    def lataa_tulos(self):
+        tulokset = []
+        # avataan olemassa oleva tiedosto, jos se ei ole, peli jatkaa eteenpäin
+        try:
+            with open(self.tiedot, "r") as tiedosto:
+                for rivi in tiedosto:
+                    ladattu_nimi, ladattu_teema, ladattu_piste = rivi.strip().split(",")
+                    tulokset.append([ladattu_nimi, ladattu_teema, ladattu_piste])
+        except FileNotFoundError:
+            pass       
+        return tulokset
             
             

@@ -1,3 +1,0 @@
-AAA,Meri,160
-DDD,Metsä,145
-AAA,Metsä,105

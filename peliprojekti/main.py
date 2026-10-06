@@ -1,8 +1,8 @@
-from peli import Huone, Esine, Pelaaja, Hahmo, Tiedot, asetukset, tulostaulukko, ladaa_tulos
+from peli import Huone, Esine, Pelaaja, Hahmo, Tiedot, asetukset, tulostaulukko
 import random
 
 def luo_ohjeet():
-    with open ("ohjeet.txt", "w") as tiedosto:
+    with open ("peliprojekti/ohjeet.txt", "w") as tiedosto:
         tiedosto.write("""
             Seikkailun aikana kohtaat erilaisia tapahtumia yllättäen.
             Lue tehtävät ja viestit huolellisesti ja tee tilanteeseen sopiva valinta.
@@ -11,7 +11,7 @@ def luo_ohjeet():
     return "ohjeet.txt"
 
 def luo_intro():
-    with open("intro.txt", "w") as tiedosto:
+    with open("peliprojekti/intro.txt", "w") as tiedosto:
         tiedosto.write("""
             Tervetuloa Questoraan!
             Lähde seikkailumatkalle ja tutki erilaisia maailmoja. 
@@ -43,7 +43,7 @@ def aloitus(pelaaja, teemat):
     pelaaja.esineet.clear()
     pelaaja.piste.nollaa_piste()
     pelaaja.vinkki_maara = 0  
-     
+    
     # valitse teema   
     print(f"\nMitä teemaa, joka kiinnostaa sinua eniten!")
     print(f" 1. Metsä-seikkailu \n 2. Meri-seikkailu \n 3. Aavikko-seikkailu")
@@ -66,7 +66,7 @@ def aloitus(pelaaja, teemat):
             print("Anna valinta numerona 1-3!")
         
 # Aloitetaan seikkailu    
-def kulku_peli(pelaaja, tallennus):
+def kulku_peli(pelaaja, tulokset, tallennus, tulos_tiedot):
     while True:
         # pelaaja etenee satunnaisen määrän askelia
         tapahtu = random.randint(1,6)       
@@ -110,6 +110,8 @@ def kulku_peli(pelaaja, tallennus):
         
         # pelaaja voittaa, jos hän kerää 2 vinkkiä
         if pelaaja.vinkki_maara >= 2:
+            tulokset.append([pelaaja.nimi, pelaaja.sijainti.nimi, pelaaja.piste.piste])
+            tulos_tiedot.tallenna_tulos(tulokset)
             print("-----")
             print(f"Olet kerännyt {pelaaja.vinkki_maara}. Se riittää! Seuraa vihjeitä, niin löydät yllätyksen.")
             break
@@ -123,19 +125,20 @@ def kulku_peli(pelaaja, tallennus):
     print(f"\nKokonaispisteesi tästä teemasta ovat {pelaaja.piste.piste}.")
                          
 def main():
-    tallennus = Tiedot("tallennetut_peli.txt")
-    ohjeet = Tiedot("ohjeet.txt")
-    intro = Tiedot("intro.txt")
-    teemat = luo_huoneet()
-    
+    tallennus = Tiedot("peliprojekti/tallennetut_peli.txt")
+    tulos_tiedot = Tiedot("peliprojekti/tallennetut_tulos.txt")
+    ohjeet = Tiedot("peliprojekti/ohjeet.txt")
+    intro = Tiedot("peliprojekti/intro.txt")
+
     # näytä ohjeet ja intro pelissä
     luo_intro()
     luo_ohjeet()
     intro.lue_tiedosto()
     ohjeet.lue_tiedosto()
     
-    pelaajat = tallennus.ladaa_tiedot()
-    tulokset = ladaa_tulos()
+    teemat = luo_huoneet()
+    pelaajat = tallennus.lataa_tiedot()
+    tulokset = tulos_tiedot.lataa_tulos()
         
     nimi = input("\nAnna sinun nimesi: ")
     ikä = int(input("Anna sinun ikäsi: "))
@@ -144,12 +147,16 @@ def main():
     if pelaaja.tarkista_pelaaja(pelaajat, teemat):
         print(f"\nTervetuloa takaisin {pelaaja.nimi}!")
         print(f"Sinulla oli {len(pelaaja.esineet)} esinettä, {pelaaja.piste.piste} pistettä ja {pelaaja.vinkki_maara} vinkkiä. Viimeisin seikkailusi oli {pelaaja.sijainti.nimi}.")
-        print("Jatketaan peliä.")
         if pelaaja.vinkki_maara == 2:
             aloitus(pelaaja, teemat)
-            kulku_peli(pelaaja, tallennus)
-        else:    
-            kulku_peli(pelaaja, tallennus)
+            kulku_peli(pelaaja, tulokset,tallennus, tulos_tiedot)
+        else:
+            kysy = input("\nHaluatko jatkaa viimeistä seikkailua (k/e)? ")  
+            if kysy == "k":  
+                kulku_peli(pelaaja, tulokset,tallennus, tulos_tiedot)
+            else:
+                aloitus(pelaaja, teemat)
+                kulku_peli(pelaaja, tulokset,tallennus, tulos_tiedot)
     else:
         print(f"\nTervetuloa {pelaaja.nimi}!")
         print(f"Osallistutaan seikkailuja ja tulkitaan salaisuusta näissä kiinnostuneissa seikkailuissa.")
@@ -173,8 +180,7 @@ def main():
             asetukset()
         elif komento == "2":
             aloitus(pelaaja, teemat)
-            kulku_peli(pelaaja,tallennus)
-            tulokset.append([pelaaja.nimi, pelaaja.sijainti.nimi, pelaaja.piste.piste])
+            kulku_peli(pelaaja, tulokset, tallennus, tulos_tiedot)
         elif komento == "3":
             tulostaulukko(tulokset)
         elif komento == "lopeta":

@@ -1,0 +1,3 @@
+AAA;;Aavikko;130;2
+BBB;Tikari;Meri;145;2
+CCC;;Aavikko;50;1

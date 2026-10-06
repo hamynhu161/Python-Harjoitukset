@@ -1,0 +1,4 @@
+AAA,Metsä,100
+AAA,Aavikko,130
+BBB,Meri,145
+AAA,Aavikko,130

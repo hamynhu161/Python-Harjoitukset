@@ -4,5 +4,5 @@ from .pelaaja import Pelaaja
 from .piste import Piste
 from .hahmo import Hahmo
 from .asetukset import asetukset
-from .tulostaulukko import tulostaulukko, ladaa_tulos
+from .tulostaulukko import tulostaulukko
 from .tiedostonhallinta import Tiedot
