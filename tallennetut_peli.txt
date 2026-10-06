@@ -1,0 +1,4 @@
+AAA;;Metsä;100;2
+BBB;;Aavikko;100;2
+CCC;Taskulamppu;Meri;65;1
+DDD;Miekka;Metsä;145;2

@@ -1,5 +1,7 @@
+
 class Huone:
-    def __init__(self, nimi, esine):
+    def __init__(self, nimi, esineet, hahmot):
         self.nimi = nimi
-        self.esine = esine
+        self.esineet = esineet
+        self.hahmot = hahmot
 

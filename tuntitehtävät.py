@@ -177,7 +177,7 @@
 # pelaajahahmo.taistelu(merihirvio)
 # input()
 # print(f"Peli ohi.")
-
+'''
 class Hahmo:
     def __init__(self, nimi):
         self.nimi = nimi
@@ -237,3 +237,55 @@ hirviöt = [merihirvio, vuorihirvio]
 pelaajahahmo = Pelaajahahmo(input("Anna hahmon nimi: "), ["ase", "miekka"])
 peli = Peli(pelaajahahmo, hirviöt)
 peli.alkaa()
+'''
+
+with open("ostoslista.txt", "w") as tiedosto:
+    tiedosto.write("maito \nleipä \nkananmunat\n")
+    
+# with open("ostoslista.txt", "a") as tiedosto:
+    # tiedosto.write("omenat")
+    
+# with open("ostoslista.txt", "r") as tiedosto:
+#     data = tiedosto.read()
+#     print(data)
+
+# with open("ostoslista.txt", "r") as tiedosto:
+#     data = tiedosto.readlines()
+#     print(f"Tuotteita listalla: {len(data)}")
+    
+# import json
+
+
+# elokuva = {
+#     "nimi": "AAA", 
+#     "vuosi": 2000, 
+#     "näyttelijä": ["Matti", "Anna", "Hanna"]
+# }
+
+# with open("elokuva.json", "w") as tiedosto:
+#     json.dump(elokuva, tiedosto)
+
+# with open("elokuva.json", "r") as tiedosto:
+#     data = json.load(tiedosto)
+#     print(f"{data["nimi"]}")
+#     print(f"{data["näyttelijä"]}")
+    
+# import os
+# if os.path.exists("elokuva.json"):
+#     os.remove("elokuva.json")
+# else:
+#     print("Tiedosto ei löytyy.")
+
+# while True:
+#     tiedosto_nimi = input("Anna tiedoston nimi: ")
+#     try:
+#         with open(tiedosto_nimi, "r") as tiedosto:
+#             data = tiedosto.read()
+#             print(data)
+#             break
+#     except FileNotFoundError:
+#         print("Tiedosto ei löytyy, yritä uudelleen.")
+    
+    
+    
+        
