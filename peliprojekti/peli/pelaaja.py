@@ -34,6 +34,7 @@ class Pelaaja:
                 loytyi = True            
         return loytyi
 
+    # Siirty valitettuun huoneeseen
     def liiku(self, huone):
         self.sijainti = huone
         print(f"Tervetuloa {self.nimi}. Olet {self.sijainti.nimi}-seikkailulla nyt.")
@@ -45,7 +46,7 @@ class Pelaaja:
         for i in range(len(self.esineet)):
             print(f"{i+1}. {self.esineet[i].nimi}. Sen paino on {self.esineet[i].paino}")
 
-    def keraa_esine (self, esine):
+    def keraa_esine(self, esine):
         while True:
             keraa = input("Löysit esineen! Haluatko ottaa sen mukaasi (k/e)? ")
             
@@ -60,7 +61,7 @@ class Pelaaja:
             else:
                 print("Virheellinen valinta. Valitset k tai e?")
     
-    def meneta_esine (self):
+    def meneta_esine(self):
         print("Varo! Yksi esineistäsi on putoamassa.")
         
         if self.esineet:

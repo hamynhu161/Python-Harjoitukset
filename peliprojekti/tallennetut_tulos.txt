@@ -1,4 +1,11 @@
-AAA,Metsä,100
-AAA,Aavikko,130
-BBB,Meri,145
-AAA,Aavikko,130
+BBB,Metsä,130
+EEE,Meri,130
+AAA,Metsä,115
+CCC,Aavikko,115
+DDD,Meri,115
+HHH,Metsä,115
+HHH,Meri,115
+BBB,Aavikko,100
+EEE,Metsä,100
+EEE,Aavikko,100
+QQQ,Aavikko,100

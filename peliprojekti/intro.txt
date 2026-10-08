@@ -1,5 +1,3 @@
 
             Tervetuloa Questoraan!
-            Lähde seikkailumatkalle ja tutki erilaisia maailmoja. 
-            Jokaisessa seikkailussa tavoitteena on löytää alueen salaisuus ja kirjoittaa löytö omaan seikkailupäiväkirjaasi.
-            Jokainen askel voi tuoda eteesi uuden yllätyksen: voit löytää esineitä, kohdata hahmoja, tai saada vihjeitä.
+            Lähde seikkailumatkalle ja tutki erilaisia maailmoja.

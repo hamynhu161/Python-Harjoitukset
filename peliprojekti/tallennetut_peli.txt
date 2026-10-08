@@ -1,3 +1,7 @@
-AAA;;Aavikko;130;2
-BBB;Tikari;Meri;145;2
-CCC;;Aavikko;50;1
+AAA;Miekka;Metsä;115;2
+BBB;Miekka,Köysi;Metsä;130;2
+CCC;;Aavikko;0;0
+DDD;Tikari;Meri;115;2
+EEE;Tikari,Taskulamppu;Meri;130;2
+HHH;Taskulamppu;Meri;115;2
+QQQ;;Aavikko;100;2

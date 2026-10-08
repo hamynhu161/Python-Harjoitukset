@@ -1,25 +1,7 @@
 from peli import Huone, Esine, Pelaaja, Hahmo, Tiedot, asetukset, tulostaulukko
 import random
 
-def luo_ohjeet():
-    with open ("peliprojekti/ohjeet.txt", "w") as tiedosto:
-        tiedosto.write("""
-            Seikkailun aikana kohtaat erilaisia tapahtumia yllättäen.
-            Lue tehtävät ja viestit huolellisesti ja tee tilanteeseen sopiva valinta.
-            Kerää hyödyllisiä esineitä, käytä niitä oikeissa tilanteissa ja etsi vihjeitä. 
-            Kun olet saanut tarpeeksi vihjeitä, voit löytää seikkailun salaisuuden.""")
-    return "ohjeet.txt"
-
-def luo_intro():
-    with open("peliprojekti/intro.txt", "w") as tiedosto:
-        tiedosto.write("""
-            Tervetuloa Questoraan!
-            Lähde seikkailumatkalle ja tutki erilaisia maailmoja. 
-            Jokaisessa seikkailussa tavoitteena on löytää alueen salaisuus ja kirjoittaa löytö omaan seikkailupäiväkirjaasi.
-            Jokainen askel voi tuoda eteesi uuden yllätyksen: voit löytää esineitä, kohdata hahmoja, tai saada vihjeitä.""")
-    return "intro.txt"
-
-# Luo kolme erillistä huonetta (teemaa), joista pelaaja voi valita seikkailun aloituspaikan
+# luo kolme erillistä huonetta (teemaa), joista pelaaja voi valita seikkailun aloituspaikan
 def luo_huoneet():
     esine1 = Esine("Miekka", 1.5)
     esine2 = Esine("Sytytin", 0.07)
@@ -27,6 +9,7 @@ def luo_huoneet():
     esine4 = Esine("Köysi", 0.12)
     esine5 = Esine("Taskulamppu", 0.7)
     esine6 = Esine("Vesipullo", 0.3)
+    
     hahmo1 = Hahmo("Karhu", "Iso ja nälkäinen hyökkäjä!")
     hahmo2 = Hahmo("Käärme", "Myrkyllinen käärme luikertelee tiellesi!")
     hahmo3 = Hahmo("Hai", "Hiljainen mutta vaarallinen hyökkääjä")
@@ -35,9 +18,44 @@ def luo_huoneet():
     hahmo6 = Hahmo("Meritähti", "Jäänyt loukkuun merileväkasaan ja tarvitsee apua.")
 
     huoneet = [Huone("Metsä", [esine1, esine4], [hahmo1, hahmo5]), Huone("Meri", [esine3, esine5], [hahmo3, hahmo6]), Huone("Aavikko", [esine2, esine6], [hahmo2, hahmo4])]
-    return huoneet
+    return huoneet    
 
-# Luo aloitus-funktio, jossa pelaaja voi valita haluamansa teeman tai huoneen ja aloittaa seikkailun        
+# palauta mitä pelaaja haluaa tehdä ensin pelissä
+def valikko(ohjeet):
+    while True:
+        print("-------")
+        print("Päävalikko: \n1. Asetukset \n2. Lue ohjeet \n3. Aloitus \n4. Tulostaulukko \n5. Lopeta")
+        
+        komento = input("Anna komento: ")
+        print("-------")
+        
+        if komento == "1":
+            asetukset()
+        elif komento == "2":
+            ohjeet.lue_tiedosto()
+        elif komento in ["3", "4", "5"]:
+            return komento
+        else:
+            print(f"Tuntematon komento. Valitset uudelleen.")  
+
+# tarkista pelaajan tilanteen ja mahdollisesti jatkaa peliä
+def alkukohta(pelaaja, pelaajat, teemat):
+    if pelaaja.tarkista_pelaaja(pelaajat, teemat):
+        print(f"\nTervetuloa takaisin {pelaaja.nimi}!")
+        print(f"Sinulla oli {len(pelaaja.esineet)} esinettä, {pelaaja.piste.piste} pistettä ja {pelaaja.vinkki_maara} vinkkiä. Viimeisin seikkailusi oli {pelaaja.sijainti.nimi}.")
+        
+        # jos viimeinen seikkailu on vielä kesken
+        if pelaaja.vinkki_maara < 2:
+            kysy = input("\nHaluatko jatkaa viimeistä seikkailua (k/e)? ")  
+            if kysy == "k":  
+                return True
+    else:
+        print(f"\nTervetuloa {pelaaja.nimi}!")
+        print(f"Osallistutaan seikkailuja ja tulkitaan salaisuusta näissä kiinnostuneissa seikkailuissa.")
+        
+    return False
+
+# pelaaja valitsee seikkailun teeman ja aloittaa uuden seikkailun 
 def aloitus(pelaaja, teemat):
     # tyhjennä pelaajan aiemmat tiedot
     pelaaja.esineet.clear()
@@ -46,7 +64,7 @@ def aloitus(pelaaja, teemat):
     
     # valitse teema   
     print(f"\nMitä teemaa, joka kiinnostaa sinua eniten!")
-    print(f" 1. Metsä-seikkailu \n 2. Meri-seikkailu \n 3. Aavikko-seikkailu")
+    print(f" \n1. Metsä-seikkailu \n2. Meri-seikkailu \n3. Aavikko-seikkailu")
     while True:
         try:
             uusi_huone = int(input("Valinta on: "))
@@ -61,16 +79,17 @@ def aloitus(pelaaja, teemat):
                 pelaaja.liiku(teemat[2])
                 break
             else:
-                print("Valitset uudelleen.")                          
+                print("Valitset uudelleen.")                   
         except ValueError:
             print("Anna valinta numerona 1-3!")
         
-# Aloitetaan seikkailu    
+# pelataan seikkailu ja käsitellään satunnaiset tapahtumat 
 def kulku_peli(pelaaja, tulokset, tallennus, tulos_tiedot):
     while True:
         # pelaaja etenee satunnaisen määrän askelia
         tapahtu = random.randint(1,6)       
         print(f"\nMennään {tapahtu} askelta eteenpäin.\n")
+        
         # pelaaja kohtaavat satunnaisia ​​haasteita tai ongelmia
         if tapahtu == 1:
             if pelaaja.sijainti.hahmot[0] is not None:
@@ -116,9 +135,9 @@ def kulku_peli(pelaaja, tulokset, tallennus, tulos_tiedot):
             print(f"Olet kerännyt {pelaaja.vinkki_maara}. Se riittää! Seuraa vihjeitä, niin löydät yllätyksen.")
             break
          
-    if pelaaja.sijainti.nimi == "Metsäseikkailu":
+    if pelaaja.sijainti.nimi == "Metsä":
         print("\nOnnea! Löysit piilotettu puumaja. Tutki paikkaa rauhassa ja lisää löytö omaan seikkailupäiväkirjaasi.")
-    elif pelaaja.sijainti.nimi == "Meriseikkailu":
+    elif pelaaja.sijainti.nimi == "Meri":
         print("\nOnnea! Löysit Aarrekartta. Tutki paikkaa rauhassa ja lisää löytö omaan seikkailupäiväkirjaasi.")
     elif pelaaja.sijainti.nimi == "Aavikko":
         print("\nOnnea! Löysit kadonnut keidas. Tutki paikkaa rauhassa ja lisää löytö omaan seikkailupäiväkirjaasi.")
@@ -130,37 +149,22 @@ def main():
     ohjeet = Tiedot("peliprojekti/ohjeet.txt")
     intro = Tiedot("peliprojekti/intro.txt")
 
-    # näytä ohjeet ja intro pelissä
-    luo_intro()
-    luo_ohjeet()
+    # näytä intro pelissä
     intro.lue_tiedosto()
-    ohjeet.lue_tiedosto()
     
+    # lataa data pelille
     teemat = luo_huoneet()
     pelaajat = tallennus.lataa_tiedot()
     tulokset = tulos_tiedot.lataa_tulos()
-        
+    
+    # kerää pelaajan tiedot
     nimi = input("\nAnna sinun nimesi: ")
     ikä = int(input("Anna sinun ikäsi: "))
-    pelaaja = Pelaaja(nimi, [], None)
-
-    if pelaaja.tarkista_pelaaja(pelaajat, teemat):
-        print(f"\nTervetuloa takaisin {pelaaja.nimi}!")
-        print(f"Sinulla oli {len(pelaaja.esineet)} esinettä, {pelaaja.piste.piste} pistettä ja {pelaaja.vinkki_maara} vinkkiä. Viimeisin seikkailusi oli {pelaaja.sijainti.nimi}.")
-        if pelaaja.vinkki_maara == 2:
-            aloitus(pelaaja, teemat)
-            kulku_peli(pelaaja, tulokset,tallennus, tulos_tiedot)
-        else:
-            kysy = input("\nHaluatko jatkaa viimeistä seikkailua (k/e)? ")  
-            if kysy == "k":  
-                kulku_peli(pelaaja, tulokset,tallennus, tulos_tiedot)
-            else:
-                aloitus(pelaaja, teemat)
-                kulku_peli(pelaaja, tulokset,tallennus, tulos_tiedot)
-    else:
-        print(f"\nTervetuloa {pelaaja.nimi}!")
-        print(f"Osallistutaan seikkailuja ja tulkitaan salaisuusta näissä kiinnostuneissa seikkailuissa.")
     
+    # luo pelaaja-olio
+    pelaaja = Pelaaja(nimi, [], None)
+    
+    # tarkista pelajaan ikä, eli peli sopii kouluaikaiselle tai enemmän
     while True:    
         try:
             if ikä < 6:
@@ -170,23 +174,23 @@ def main():
                 break
         except ValueError:
             print("Anna ikä numerona!")
+    
+    # pelaaja haluaa jatkaa viimeistä seikkailua
+    jatka = alkukohta(pelaaja, pelaajat, teemat)
+    if jatka:
+        kulku_peli(pelaaja, tulokset, tallennus, tulos_tiedot)
         
+    # näytetään päävalikko
     while True:
-        print("-------")
-        print("Päävalikko: \n1. Asetukset \n2. Aloitus \n3. Tulostaulukko")
-        komento = input("Anna komento: ")
-        print("-------")
-        if komento == "1":
-            asetukset()
-        elif komento == "2":
+        komento = valikko(ohjeet)
+        
+        if komento == "3":
             aloitus(pelaaja, teemat)
             kulku_peli(pelaaja, tulokset, tallennus, tulos_tiedot)
-        elif komento == "3":
+        elif komento == "4":
             tulostaulukko(tulokset)
-        elif komento == "lopeta":
-            break   
-        else:
-            print(f"Tuntematon komento. Valitset uudelleen.")     
+        elif komento == "5":
+            break        
     
 if __name__=="__main__":
     main()

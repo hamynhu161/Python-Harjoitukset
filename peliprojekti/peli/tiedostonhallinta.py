@@ -4,7 +4,7 @@ class Tiedot:
 
     def lue_tiedosto(self):
         try:
-            with open(self.tiedot, "r") as tiedosto:
+            with open(self.tiedot, "r", encoding="utf-8") as tiedosto:
                 print(tiedosto.read())
         except FileNotFoundError:
             return "Tiedosto ei löytynyt."       
@@ -22,15 +22,15 @@ class Tiedot:
         else:
             sijainti = ""
         # päivitetään pelaajan tallennetut tiedot
-        uusi_rivi = (f"{pelaaja.nimi};{esineet};{sijainti};{pelaaja.piste.piste};{pelaaja.vinkki_maara}\n")
+        uusi_rivi = (f"{pelaaja.nimi};{esineet};{pelaaja.sijainti.nimi};{pelaaja.piste.piste};{pelaaja.vinkki_maara}\n")
         rivit = []
         tieto_paivitetty = False
         try:
-            with open (self.tiedot, "r") as tiedosto:
+            with open (self.tiedot, "r", encoding="utf-8") as tiedosto:
                 rivit = tiedosto.readlines()
         except FileNotFoundError:
             pass
-        with open(self.tiedot, "w") as tiedosto:
+        with open(self.tiedot, "w", encoding="utf-8") as tiedosto:
             for rivi in rivit:
                 nimi = rivi.strip().split(";")[0]
                 if nimi == pelaaja.nimi:
@@ -44,7 +44,7 @@ class Tiedot:
     def lataa_tiedot(self):
         pelaajat = []
         try:
-            with open(self.tiedot, "r") as tiedosto:
+            with open(self.tiedot, "r", encoding="utf-8") as tiedosto:
                 for rivi in tiedosto:
                     tallennettu_nimi, tallennettu_esineet, tallennettu_sijainti, tallennettu_pistemaara, tallennettu_vinkkimaara = rivi.strip().split(";")
                     if tallennettu_esineet:
@@ -58,7 +58,7 @@ class Tiedot:
         return pelaajat
     
     def tallenna_tulos(self, tulokset):
-        with open (self.tiedot, "w") as tiedosto:
+        with open (self.tiedot, "w", encoding="utf-8") as tiedosto:
             for tulos in tulokset:       
                 tiedosto.write(f"{tulos[0]},{tulos[1]},{tulos[2]}\n")
 
@@ -66,7 +66,7 @@ class Tiedot:
         tulokset = []
         # avataan olemassa oleva tiedosto, jos se ei ole, peli jatkaa eteenpäin
         try:
-            with open(self.tiedot, "r") as tiedosto:
+            with open(self.tiedot, "r", encoding="utf-8") as tiedosto:
                 for rivi in tiedosto:
                     ladattu_nimi, ladattu_teema, ladattu_piste = rivi.strip().split(",")
                     tulokset.append([ladattu_nimi, ladattu_teema, ladattu_piste])
