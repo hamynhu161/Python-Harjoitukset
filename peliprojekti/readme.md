@@ -32,7 +32,7 @@ Lopuksi pelaaja voi nähdä muiden pelaajien tulokset Questoran tulostaulukosta.
 Peli kannustaa auttamaan muita, tekemään sopivaa valintoja ja pohtimaan päätöstensä seurauksia. Lisäksi peli herättää kiinnostusta erilaisiin ympäristöihin ja niiden tutkimiseen.
 
 ## Pelin rakenne
-'''text
+```text
 peliprojekti/
 │
 ├── main.py                         ← pääohjelma
